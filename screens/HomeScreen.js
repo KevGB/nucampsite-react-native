@@ -20,7 +20,11 @@ const FeaturedItem = ({ item }) => {
       </Card>
     );
   }
-  return <View><Text>Empty</Text></View>;
+  return (
+    <View>
+      <Text>Empty</Text>
+    </View>
+  );
 };
 
 const HomeScreen = () => {
@@ -28,15 +32,9 @@ const HomeScreen = () => {
   const [promotions, setPromotions] = useState(PROMOTIONS);
   const [partners, setPartners] = useState(PARTNERS);
 
-  const featCampsite = campsites.find((item) => 
-    item.featured
-  );
-  const featPromotion = promotions.find((item) => 
-    item.featured
-  );
-  const featPartner = partners.find((item) => 
-    item.featured
-  );
+  const featCampsite = campsites.find((item) => item.featured);
+  const featPromotion = promotions.find((item) => item.featured);
+  const featPartner = partners.find((item) => item.featured);
 
   return (
     <ScrollView>
