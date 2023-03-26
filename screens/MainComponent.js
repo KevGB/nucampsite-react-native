@@ -53,10 +53,7 @@ const AboutNavigator = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      <Stack.Screen
-        name="About"
-        component={AboutScreen}
-      />
+      <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>
   );
 };
@@ -96,17 +93,13 @@ const Main = () => {
           component={DirectoryNavigator}
           options={{ title: "Directory" }}
         />
-        <Drawer.Screen
-          name="About"
-          component={AboutNavigator}
-        />
+        <Drawer.Screen name="About" component={AboutNavigator} />
         <Drawer.Screen
           name="Contact"
           component={ContactNavigator}
           options={{ title: "Contact Us" }}
         />
       </Drawer.Navigator>
-      
     </View>
   );
 };
