@@ -11,6 +11,7 @@ const CampsiteInfoScreen = ({ route }) => {
   const renderCommentItem = ({ item }) => {
     return (
       <View style={styles.commentItem}>
+        <Text style={{fontSize: 14}}>{item.text}</Text>
         <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
         <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
       </View>
