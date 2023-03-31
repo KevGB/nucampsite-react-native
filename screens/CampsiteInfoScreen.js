@@ -3,6 +3,7 @@ import { toggleFavorite } from "../features/favorites/favoritesSlice";
 import { FlatList, Text, View, StyleSheet, Button, Modal } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
+import { Input, Rating } from "react-native-elements";
 
 const CampsiteInfoScreen = ({ route }) => {
   const { campsite } = route.params;
@@ -10,12 +11,37 @@ const CampsiteInfoScreen = ({ route }) => {
   const favorites = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [author, setAuthor] = useState("");
+  const [text, setText] = useState("");
+
+  function handleSubmit() {
+    const newComment = {
+      campsiteId: campsite.id,
+      rating,
+      author,
+      text,
+    };
+    console.log(newComment);
+    setShowModal(!showModal);
+  }
+
+  function resetForm() {
+    setRating(5);
+    setAuthor("");
+    setText("");
+  }
 
   const renderCommentItem = ({ item }) => {
     return (
       <View style={styles.commentItem}>
         <Text style={{ fontSize: 14 }}>{item.text}</Text>
-        <Text style={{ fontSize: 12 }}>{item.rating} Stars</Text>
+        <Rating
+        startingValue={item.rating}
+        imageSize={10}
+        style={{alignItems:'flex-start', paddingVertical:'5%'}}
+        readonly
+        />
         <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
       </View>
     );
@@ -49,11 +75,45 @@ const CampsiteInfoScreen = ({ route }) => {
         onRequestClose={() => setShowModal(!showModal)}
       >
         <View style={styles.modal}>
-          <View style={{margin:10}}>
+          <Rating
+            showRating
+            startingValue={rating}
+            imageSize={40}
+            onFinishRating={(rating) => setRating(rating)}
+            style={{ paddingVertical: 10 }}
+          />
+          <Input
+            placeholder="What's your name?"
+            leftIcon="user-o"
+            leftIconContainerStyle={{ paddingRight: 10 }}
+            onChangeText={(author) => setAuthor(author)}
+            value={author}
+          />
+          <Input
+            placeholder="Leave us a comment"
+            leftIcon="comment-o"
+            leftIconContainerStyle={{ paddingRight: 10 }}
+            onChangeText={(comment) => setComment(comment)}
+            value={comment}
+          />
+          <View style={{ margin: 10 }}>
             <Button
-            onPress={()=>setShowModal(!showModal)}
-            color='#808080'
-            title='Cancel'
+              title="Submit"
+              color="#5637dd"
+              onPress={() => {
+                handleSubmit();
+                resetForm();
+              }}
+            />
+          </View>
+          <View style={{ margin: 10 }}>
+            <Button
+              onPress={() => {
+                setShowModal(!showModal);
+                resetForm();
+              }}
+              color="#808080"
+              title="Cancel"
             />
           </View>
         </View>
@@ -77,11 +137,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#fff",
   },
-  modal:{
-    justifyContent:'center',
-    margin: 20
-  
-  }
+  modal: {
+    justifyContent: "center",
+    margin: 20,
+  },
 });
 
 export default CampsiteInfoScreen;
