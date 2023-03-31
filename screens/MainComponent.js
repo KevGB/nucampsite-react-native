@@ -221,7 +221,7 @@ const Main = () => {
           }}
         />
 
-        <Drawer.Screen
+<Drawer.Screen
           name="ReserveCampsite"
           component={ReservationNavigator}
           options={{
