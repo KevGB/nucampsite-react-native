@@ -32,7 +32,7 @@ const RenderCampsite = (props) => {
             color="#5637dd"
             raised
             reverse
-            onPress={() => props.onShowModal}
+            onPress={() => props.onShowModal()}
           />
         </View>
       </Card>
