@@ -4,6 +4,7 @@ import { FlatList, Text, View, StyleSheet, Button, Modal } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { Input, Rating } from "react-native-elements";
+import { postComment } from "../features/comments/commentsSlice";
 
 const CampsiteInfoScreen = ({ route }) => {
   const { campsite } = route.params;
@@ -23,6 +24,7 @@ const CampsiteInfoScreen = ({ route }) => {
       text,
     };
     console.log(newComment);
+    dispatch(postComment(newComment));
     setShowModal(!showModal);
   }
 
@@ -37,10 +39,10 @@ const CampsiteInfoScreen = ({ route }) => {
       <View style={styles.commentItem}>
         <Text style={{ fontSize: 14 }}>{item.text}</Text>
         <Rating
-        startingValue={item.rating}
-        imageSize={10}
-        style={{alignItems:'flex-start', paddingVertical:'5%'}}
-        readonly
+          startingValue={item.rating}
+          imageSize={10}
+          style={{ alignItems: "flex-start", paddingVertical: "5%" }}
+          readonly
         />
         <Text style={{ fontSize: 12 }}>{`--${item.author}, ${item.date}`}</Text>
       </View>
@@ -61,7 +63,10 @@ const CampsiteInfoScreen = ({ route }) => {
             <RenderCampsite
               campsite={campsite}
               isFavorite={favorites.includes(campsite.id)}
-              onShowModal={() => setShowModal(!showModal)}
+              onShowModal={() => {
+                setShowModal(!showModal);
+                console.log(showModal);
+              }}
               markFavorite={() => dispatch(toggleFavorite(campsite.id))}
             />
             <Text style={styles.commentsTitle}>Comments</Text>
@@ -94,7 +99,7 @@ const CampsiteInfoScreen = ({ route }) => {
             leftIcon="comment-o"
             leftIconContainerStyle={{ paddingRight: 10 }}
             onChangeText={(comment) => setComment(comment)}
-            value={comment}
+            value={text}
           />
           <View style={{ margin: 10 }}>
             <Button
