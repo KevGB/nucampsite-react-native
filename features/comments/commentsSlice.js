@@ -34,8 +34,6 @@ const commentsSlice = createSlice({
   initialState: { isLoading: true, errMess: null, commentsArray: [] },
   reducers: {
     addComment: (state, action) => {
-      console.log("addComment action.payload", action.payload);
-      console.log("addComment state.commentsArray", state.commentsArray);
       state.commentsArray.push(action.payload);
     },
   },
