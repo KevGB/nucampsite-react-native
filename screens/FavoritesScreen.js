@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { View, FlatList, Text } from "react-native";
-import { Avatar } from "react-native-elements";
+import { Avatar, ListItem } from "react-native-elements";
 import Loading from "../components/LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 
@@ -20,10 +20,10 @@ const FavoritesScreen = ({ navigation }) => {
           })
         }
       >
-        <Avatar rounded source={{uri: baseUrl + campsite.image}} />
+        <Avatar rounded source={{ uri: baseUrl + campsite.image }} />
         <ListItem.Content>
-            <ListItem.Title>{campsite.name}</ListItem.Title>
-            <ListItem.Subtitle>{campsite.description}</ListItem.Subtitle>
+          <ListItem.Title>{campsite.name}</ListItem.Title>
+          <ListItem.Subtitle>{campsite.description}</ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
     );
