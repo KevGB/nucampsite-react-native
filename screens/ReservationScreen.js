@@ -8,10 +8,10 @@ import {
   Switch,
   Button,
   Alert,
-  
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Notifications from "expo-notifications";
 
 const ReservationScreen = () => {
   const [campers, setCampers] = useState(1);
@@ -51,7 +51,6 @@ const ReservationScreen = () => {
       ],
       { cancelable: false }
     );
-
   };
 
   const resetForm = () => {
@@ -134,9 +133,6 @@ const styles = StyleSheet.create({
   formItem: {
     flex: 1,
   },
-
 });
 
 export default ReservationScreen;
-
-
