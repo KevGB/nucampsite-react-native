@@ -46,7 +46,10 @@ const ReservationScreen = () => {
         },
         {
           text: "OK",
-          onPress: () => resetForm(),
+          onPress: () => {
+            presentLocalNotification(date.toLocaleDateString("en-US"));
+            resetForm();
+          },
         },
       ],
       { cancelable: false }
@@ -58,6 +61,32 @@ const ReservationScreen = () => {
     setHikeIn(false);
     setDate(new Date());
     setShowCalendar(false);
+  };
+
+  const presentLocalNotification = async (reservationDate) => {
+    const sendNotification = () => {
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Your Campsite Reservation Search",
+          body: `Search for ${reservationDate} requested`,
+        },
+        trigger: null,
+      });
+    };
+    let permissions = await Notifications.getPermissionsAsync();
+    if (!permissions.granted) {
+      permissions = await Notifications.requestPermissionsAsync();
+    }
+    if (permissions.granted) {
+      sendNotification();
+    }
   };
 
   return (
