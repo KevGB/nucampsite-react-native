@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, Image } from "react-native";
 import { CheckBox, Input, Icon, Button } from "react-native-elements";
 import * as SecureStore from "expo-secure-store";
 import { DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { baseUrl } from "../shared/baseUrl";
+import logo from "../assets/images/logo.png";
+import * as ImagePicker from "expo-image-picker";
 
 const LoginTab = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -105,6 +108,7 @@ const RegisterTab = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [remember, setRemember] = useState(false);
+  const [imageUrl, setImageUrl] = useState(baseUrl + "images/logo.png");
 
   const handleRegister = () => {
     const userInfo = {
@@ -129,9 +133,32 @@ const RegisterTab = () => {
     }
   };
 
+  const getImagefromCamera = async () => {
+    const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+    if (cameraPermission.status === "granted") {
+      const captureImage = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+      });
+
+      if (captureImage.assets) {
+        console.log(captureImage.assets[0]);
+        setImageUrl(captureImage.assets[0].uri);
+      }
+    }
+  };
+
   return (
     <ScrollView>
       <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: imageUrl }}
+            loadingIndicatorSource={logo}
+            style={styles.image}
+          />
+          <Button title="Camera" onPress={getImagefromCamera} />
+        </View>
         <Input
           placeholder="Username"
           leftIcon={{ type: "font-awesome", name: "user-o" }}
@@ -259,6 +286,17 @@ const styles = StyleSheet.create({
     margin: 20,
     marginRight: 40,
     marginLeft: 40,
+  },
+  imageContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    margin: 10,
+  },
+  image: {
+    width: 60,
+    height: 60,
   },
 });
 
