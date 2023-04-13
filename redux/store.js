@@ -24,26 +24,18 @@ const config = {
 
 export const store = configureStore({
   reducer: persistCombineReducers(config, {
-              campsites: campsitesReducer,
-              comments: commentsReducer,
-              partners: partnersReducer,
-              promotions: promotionsReducer,
-              favorites: favoritesReducer,
-            }),
-  middleware: (getDefaultMiddleware) => 
-                  getDefaultMiddleware({
-                    serializableCheck: {
-                      ignoredActions: [
-                        FLUSH,
-                        REGISTER,
-                        REHYDRATE,
-                        PAUSE,
-                        PERSIST,
-                        PURGE
-                      ]
-                    }
-                  })
+    campsites: campsitesReducer,
+    comments: commentsReducer,
+    partners: partnersReducer,
+    promotions: promotionsReducer,
+    favorites: favoritesReducer,
+  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REGISTER, REHYDRATE, PAUSE, PERSIST, PURGE],
+      },
+    }),
 });
-
 
 export const persistor = persistStore(store);
