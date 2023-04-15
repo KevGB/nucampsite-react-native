@@ -8,6 +8,7 @@ import logo from "../assets/images/logo.png";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 
+
 const LoginTab = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -148,7 +149,6 @@ const RegisterTab = () => {
     }
   };
 
-  //TODO: figure out proboem with this function
   const processImage = async (imgUri) => {
     const processedImage = await ImageManipulator.manipulateAsync(
       imgUri,
@@ -159,6 +159,8 @@ const RegisterTab = () => {
     setImageUrl(processedImage.uri);
   };
 
+
+  
   const getImageFromGallery = async () => {
     const mediaLibraryPermissions =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
