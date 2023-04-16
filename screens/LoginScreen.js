@@ -8,7 +8,6 @@ import logo from "../assets/images/logo.png";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 
-
 const LoginTab = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -159,8 +158,6 @@ const RegisterTab = () => {
     setImageUrl(processedImage.uri);
   };
 
-
-  
   const getImageFromGallery = async () => {
     const mediaLibraryPermissions =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -169,9 +166,9 @@ const RegisterTab = () => {
         allowsEditing: true,
         aspect: [1, 1],
       });
-      if(capturedImage.assets){
+      if (capturedImage.assets) {
         console.log(capturedImage.assets[0]);
-        processImage(capturedImage.assets[0].uri)
+        processImage(capturedImage.assets[0].uri);
       }
     }
   };
