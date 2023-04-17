@@ -32,7 +32,7 @@ const ContactScreen = () => {
                 name="envelope-o"
                 type="font-awesome"
                 color="#fff"
-                iconStyle={{ marginRight: 10 }}
+                iconStyle={{ margin: 10 }}
               />
             }
             onPress={() => sendMail()}
