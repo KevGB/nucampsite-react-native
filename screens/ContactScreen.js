@@ -40,6 +40,7 @@ const ContactScreen = () => {
         </Card>
       </Animatable.View>
     </ScrollView>
+    <Animatable.View></Animatable.View>
   );
 };
 
